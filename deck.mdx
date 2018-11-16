@@ -1,0 +1,558 @@
+import { Image, Appear } from 'mdx-deck'
+import { dark } from 'mdx-deck/themes'
+import { Split } from 'mdx-deck/layouts'
+import codeSurfer from 'prism-react-renderer/themes/nightOwl'
+export { components } from 'mdx-deck-code-surfer'
+export const theme = {
+  ...dark,
+  codeSurfer,
+  monospace: 'Dank Mono',
+  colors: {
+    text: 'rgb(214, 222, 235)',
+    code: 'rgb(130, 170, 255)',
+    link: 'rgb(128, 203, 196)',
+    background: 'rgb(1, 22, 39)',
+  },
+}
+
+<Image src={require('file-loader!./img/cover.png')} />
+
+---
+
+export default Split
+
+<Image src={require('file-loader!./img/vljs.png')} />
+
+## Hello there ValenciaJS friends! 👋🏼
+
+---
+
+`$ whoami`
+
+---
+
+<Image src={require('file-loader!./img/egghead.png')} />
+
+---
+
+<Image src={require('file-loader!./img/lambda.jpg')} />
+
+---
+
+## !sdneirf SJaicnelaV Ereht OlleH 👋🏼
+
+---
+
+```js Imperative code
+const translate = function(sentence) {
+  const words = sentence.split(' ')
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    const letters = word.split('')
+    const reversedLetters = letters.reverse()
+    reversedLetters[0] = reversedLetters[0].toUpperCase()
+    words[i] = reversedLetters.join('')
+  }
+
+  const reversedWords = words.reverse()
+  return reversedWords.join(' ')
+}
+----
+* > imperative solution 🤮
+7:9 > mutations, mutations everywhere!!!
+```
+
+---
+
+## Data Immutability
+
+<Appear>
+  <p>Avoid mutating data</p>
+  <p>Avoid parameter mutation</p>
+  <p>Avoid variables</p>
+</Appear>
+
+---
+
+```js Refactor: mutations
+const translate = function(sentence) {
+  const words = sentence.split(' ')
+  const newWords = []
+
+  for (const word of words) {
+    const letters = word.split('')
+    const reversedLetters = letters.reverse()
+
+    const firstCapitalLetter = reversedLetters[0].toUpperCase()
+    const restOfLetters = reversedLetters.slice(1)
+    const newWord = firstCapitalLetter + restOfLetters.join('')
+
+    newWords.push(newWord) // still bad! but OK for now...
+  }
+
+  const reversedWords = newWords.reverse()
+  return reversedWords.join(' ')
+}
+----
+* > without mutations*
+9:11 > partially fixed with new assignments
+13 > still bad! but OK... for now...
+```
+
+---
+
+## Higher Order Functions
+
+<Appear>
+  <p>Functions as first-class citizens</p>
+  <p>Functions returning functions</p>
+  <p>Functions as parameters to other functions</p>
+</Appear>
+
+---
+
+```js Refactor: array map
+const translate = sentence => {
+  const words = sentence.split(' ')
+
+  const newWords = words.map(word => {
+    const letters = word.split('')
+    const reversedLetters = letters.reverse()
+    const firstCapitalLetter = reversedLetters[0].toUpperCase()
+    const restOfLetters = reversedLetters.slice(1)
+    return firstCapitalLetter + restOfLetters.join('')
+  })
+
+  const reversedWords = newWords.reverse()
+  return reversedWords.join(' ')
+}
+----
+* > using map
+4,10 > `map` is a HOF!
+```
+
+---
+
+```js More refactor: extract functions
+const capitalizeFirstLetter = word => word[0].toUpperCase() + word.slice(1)
+
+const reverseWord = word =>
+  word
+    .split('')
+    .reverse()
+    .join('')
+
+const transformWords = words =>
+  words.map(word => {
+    const reversedWord = reverseWord(word)
+    return capitalizeFirstLetter(reversedWord)
+  })
+
+const translate = sentence => {
+  const words = sentence.split(' ')
+  const newWords = transformWords(words)
+
+  const reversedWords = newWords.reverse()
+  return reversedWords.join(' ')
+}
+----
+* > these functions can be extracted into separated concerns...
+1 > `capitalizeFirstLetter` is independent
+3:7 > `reverseWord` is also independent
+9:13 > `transformWords` only cares about our `map` function
+15:21 > `translate`, our main function, stays the same
+```
+
+---
+
+## Pure Functions
+
+<Appear>
+  <p>A given input always produces the same ouput</p>
+  <p>Inputs are only paramenters</p>
+  <p>
+    No side effects{' '}
+    <small>(database/network access, console/screen print...)</small>
+  </p>
+  <p>*Referential Transparency* 😱</p>
+</Appear>
+
+---
+
+> Welcome to Ramda! 🐏
+
+---
+
+```js Refactor: pure functions (I)
+import { map, split, join, reverse } from 'ramda'
+
+const transformWords = words =>
+  map(word => {
+    const reversedWord = reverseWord(word)
+    return capitalizeFirstLetter(reversedWord)
+  }, words)
+
+const translate = sentence => {
+  const words = split(' ', sentence)
+  const newWords = transformWords(words)
+
+  const reversedWords = reverse(newWords)
+  return join(' ', reversedWords)
+}
+----
+* > ramda
+4,10,13,14 > instead we use Ramda's functions!
+```
+
+---
+
+```js Refactor: pure functions (II)
+import { concat, head, split, tail, join, reverse, toUpper } from 'ramda'
+
+const reverseWord = word => {
+  const letters = split('', word)
+  const reversedLetters = reverse(letters)
+  return join('', reversedLetters)
+}
+
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+----
+* > the other part
+4:6, 10 > ramda to the rescue!
+```
+
+---
+
+## Currying
+
+<Appear>
+  <p>Partially apply a function</p>
+  <p>Unary function that returns another function</p>
+  <p>Curried functions receive arguments one-at-a-time</p>
+</Appear>
+
+---
+
+```js
+// Currying example
+const sum = x => y => x + y
+```
+
+---
+
+## Why is this useful?
+
+---
+
+```js
+// Because it helps us create and compose new functions
+const addThree = sum(3)
+const addTen = sum(10)
+
+addThree(4) // > 7
+addTen(4) // 14
+```
+
+---
+
+```js Refactor: currying (I)
+import { map, split, join, reverse } from 'ramda'
+
+const transformWords = words =>
+  map(word => {
+    const reversedWord = reverseWord(word)
+    return capitalizeFirstLetter(reversedWord)
+  })(words)
+
+const translate = sentence => {
+  const words = split(' ')(sentence)
+  const newWords = transformWords(words)
+
+  const reversedWords = reverse(newWords)
+  return join(' ')(reversedWords)
+}
+
+----
+* > curry! 🍛
+4,7,10,14 > curried functions!
+```
+
+---
+
+```js Refactor: currying (II)
+import { concat, head, split, tail, join, reverse, toUpper } from 'ramda'
+
+const reverseWord = word => {
+  const letters = split('')(word)
+  const reversedLetters = reverse(letters)
+  return join('')(reversedLetters)
+}
+
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+----
+*> moar curry
+4,6 > more curried functions! 🍛
+```
+
+---
+
+## Function Composition
+
+<Appear>
+  <p>Compose many functions into one</p>
+  <p>Equivalent to apply one function and then the next one</p>
+  <p>The order of composition matters! (right->left)</p>
+</Appear>
+
+---
+
+# Math
+
+> `f(g(x)) <=> (f · g)(x)`
+
+---
+
+```js Composition example
+const reverseWord = word => {
+  const letters = split('')(word)
+  const reversedLetters = reverse(letters)
+  return join('')(reversedLetters)
+
+// without variables...
+
+const reverseWord = word => join('')(reverse(split('')(word)))
+```
+
+---
+
+```js with compose...
+import { compose } from 'ramda'
+
+const reverseWord = word => compose(join(''), reverse, split(''))(word)
+```
+
+---
+
+> So what sort of _magic_ is compose? 🤔
+
+---
+
+```js No magic: just a reduceRight!
+const compose = (...fns) => arg => fns.reduceRight((x, f) => f(x), arg)
+```
+
+---
+
+```js Refactor: composition (I)
+import { compose, map, split, join, reverse } from 'ramda'
+
+const transformWords = words => map(word =>
+  compose(
+    capitalizeFirstLetter,
+    reverseWord
+  )(word)
+)(words)
+
+const translate = words => compose(
+  join(' '),
+  reverse,
+  transformWords,
+  split(' ')
+)(words)
+----
+*> compose!
+4,7,10,15 > compose everywhere!!
+```
+
+---
+
+```js Refactor: composition (II)
+import { compose, concat, head, split, tail, join, reverse, toUpper } from 'ramda'
+
+const reverseWord = word => compose(
+  join(''),
+  reverse,
+  split('')
+)(word)
+
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+----
+*> more compose!
+3,7 > compose all the things! 🎸
+10 > but wait!! We can't compose here... 🤔
+```
+
+---
+
+# Point-free style
+
+### `"It means functions that never mention the data upon which they operate"`
+
+---
+
+```js
+// Example
+
+const getServerData = callback => ajaxCall(callback)
+
+// is equivalent to:
+
+const getServerData = ajaxCall
+```
+
+---
+
+```js Refactor: point-free (I)
+import { compose, map, split, join, reverse } from 'ramda'
+
+const transformWords = map(
+  compose(
+    capitalizeFirstLetter,
+    reverseWord
+  )
+)
+
+const translate = compose(
+  join(' '),
+  reverse,
+  transformWords,
+  split(' ')
+)
+----
+*> sweet, sweet point-free! 🤤
+```
+
+---
+
+```js Refactor: point-free (II)
+import { compose, concat, head, split, tail, join, reverse, toUpper } from 'ramda'
+
+const reverseWord = compose(
+  join(''),
+  reverse,
+  split('')
+)
+
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+----
+*> noticed? we don't mention the data anywhere*!!
+10 > except from here, of course, we'll take care of that in a sec...
+```
+
+---
+
+## Functors!
+
+<Appear>
+  <p>Container for data (functions are also data)</p>
+  <p><small>The container is also a function!</small></p>
+  <p>Implements a `map` function to apply other functions to the data</p>
+  <p><small>`map` is not about iteration but about applying functions to data</small></p>
+</Appear>
+
+---
+
+```js Refactor: Functors!
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+// is equivalent to...
+
+const capitalizeFirstLetter = word => {
+  const functor = [word] // Arrays are Functors!
+  const first = map(compose(toUpper, head))(functor)
+  const last = map(tail)(functor)
+  const pieces = concat(first, last)
+  return join('')(pieces)
+}
+----
+* > Functors!
+7 > Arrays are Functors! 😮
+```
+
+---
+
+# Applicative Functors!!
+
+### `"The ability to apply Functors to each other"`
+
+---
+
+```js Refactor: applicatives
+const capitalizeFirstLetter = word =>
+  concat(toUpper(head(word)), tail(word))
+
+// is equivalent to...
+
+import { compose, concat, head, lift, tail, toUpper } from 'ramda'
+
+const capitalizeAp = lift(concat)(compose(toUpper, head), tail)
+----
+*> using applicative functors...
+8 > notice how we use `lift` 🤯
+```
+
+---
+
+# WOW... THAT WAS A LOT... 🤯
+
+---
+
+```js What if just...
+import { replace, toUpper } from 'ramda'
+
+const capitalizeFirstLetter = replace(/^./, toUpper)
+```
+
+---
+
+### LESSON: Sometimes, there are better tools for the job! 😎
+
+---
+
+# Monads
+
+### `"Monads are pointed Functors that can flatten"`
+
+---
+
+```js Imperative VS. Declarative
+// Imperative
+const translate = function(sentence) {
+  const words = sentence.split(' ')
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i]
+    const letters = word.split('')
+    const reversedLetters = letters.reverse()
+    reversedLetters[0] = reversedLetters[0].toUpperCase()
+    words[i] = reversedLetters.join('')
+  }
+
+  const reversedWords = words.reverse()
+  return reversedWords.join(' ')
+}
+
+// Declarative
+const capitalizeFirstLetter = replace(/^./, toUpper)
+const reverseWord = compose(join(''), reverse, split(''))
+const transformWords = map(compose(capitalizeFirstLetter, reverseWord))
+const translate = compose(join(' '), reverse, transformWords, split(' '))
+```
+
+---
+
+# Thanks! ☺️
+
+---
+
+<Image src={require('file-loader!./img/ending.png')} />

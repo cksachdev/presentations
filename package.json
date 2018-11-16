@@ -1,0 +1,32 @@
+{
+  "name": "fp-js-talk-intermediate",
+  "version": "1.0.0",
+  "description": "My renewed talk for Functional Programming in JavaScript, a little less introductory ⚡️",
+  "main": "deck.mdx",
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx --no-html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kutyel/fp-js-talk-intermediate.git"
+  },
+  "keywords": [
+    "react",
+    "learn-react",
+    "react-16",
+    "react-suspense",
+    "react-hooks"
+  ],
+  "author": "kutyel <flaviocorpa@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kutyel/fp-js-talk-intermediate/issues"
+  },
+  "homepage": "https://github.com/kutyel/fp-js-talk-intermediate#readme",
+  "devDependencies": {
+    "file-loader": "^2.0.0",
+    "mdx-deck": "^1.7.7",
+    "mdx-deck-code-surfer": "^0.5.3"
+  }
+}
