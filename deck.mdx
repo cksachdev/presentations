@@ -6,7 +6,7 @@ export { components } from 'mdx-deck-code-surfer'
 export const theme = {
   ...dark,
   codeSurfer,
-  monospace: 'Dank Mono',
+  monospace: '"Dank Mono", Consolas, "Roboto Mono", monospaced',
   colors: {
     text: 'rgb(214, 222, 235)',
     code: 'rgb(130, 170, 255)',
@@ -19,11 +19,7 @@ export const theme = {
 
 ---
 
-export default Split
-
-<Image src={require('file-loader!./img/vljs.png')} />
-
-## Hello there ValenciaJS friends! 👋🏼
+<Image src={require('file-loader!./img/vljs.svg')} />
 
 ---
 
@@ -39,7 +35,7 @@ export default Split
 
 ---
 
-## !sdneirf SJaicnelaV Ereht OlleH 👋🏼
+## Sdneirf TseFhceTCLV Ereht OlleH 👋🏼
 
 ---
 
@@ -333,7 +329,12 @@ const reverseWord = word => join('')(reverse(split('')(word)))
 ```js with compose...
 import { compose } from 'ramda'
 
-const reverseWord = word => compose(join(''), reverse, split(''))(word)
+const reverseWord = word =>
+  compose(
+    join(''),
+    reverse,
+    split('')
+  )(word)
 ```
 
 ---
@@ -454,9 +455,15 @@ const capitalizeFirstLetter = word =>
 
 <Appear>
   <p>Container for data (functions are also data)</p>
-  <p><small>The container is also a function!</small></p>
+  <p>
+    <small>The container is also a function!</small>
+  </p>
   <p>Implements a `map` function to apply other functions to the data</p>
-  <p><small>`map` is not about iteration but about applying functions to data</small></p>
+  <p>
+    <small>
+      `map` is not about iteration but about applying functions to data
+    </small>
+  </p>
 </Appear>
 
 ---
@@ -544,9 +551,23 @@ const translate = function(sentence) {
 
 // Declarative
 const capitalizeFirstLetter = replace(/^./, toUpper)
-const reverseWord = compose(join(''), reverse, split(''))
-const transformWords = map(compose(capitalizeFirstLetter, reverseWord))
-const translate = compose(join(' '), reverse, transformWords, split(' '))
+const reverseWord = compose(
+  join(''),
+  reverse,
+  split('')
+)
+const transformWords = map(
+  compose(
+    capitalizeFirstLetter,
+    reverseWord
+  )
+)
+const translate = compose(
+  join(' '),
+  reverse,
+  transformWords,
+  split(' ')
+)
 ```
 
 ---
