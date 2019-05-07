@@ -1,7 +1,7 @@
 {
-  "name": "fp-js-talk-intermediate",
+  "name": "presentations",
   "version": "1.0.0",
-  "description": "My renewed talk for Functional Programming in JavaScript, a little less introductory ⚡️",
+  "description": "Set of presentations using code surfer ⚡️",
   "main": "deck.mdx",
   "scripts": {
     "start": "mdx-deck deck.mdx",
@@ -9,24 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kutyel/fp-js-talk-intermediate.git"
+    "url": "git+https://github.com/cksachdev/presentations.git"
   },
   "keywords": [
-    "react",
-    "learn-react",
-    "react-16",
-    "react-suspense",
-    "react-hooks"
+    "codesurfer"
   ],
   "author": "kutyel <flaviocorpa@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kutyel/fp-js-talk-intermediate/issues"
+    "url": "https://github.com/cksachdev/presentations/issues"
   },
-  "homepage": "https://github.com/kutyel/fp-js-talk-intermediate#readme",
+  "homepage": "https://github.com/cksachdev/presentations#readme",
   "devDependencies": {
     "file-loader": "^2.0.0",
     "mdx-deck": "^1.7.7",
-    "mdx-deck-code-surfer": "^0.5.3"
+    "mdx-deck-code-surfer": "^0.5.3",
+    "raw-loader": "^0.5.1"
   }
 }
