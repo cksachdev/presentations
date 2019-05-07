@@ -2,10 +2,10 @@
   "name": "presentations",
   "version": "1.0.0",
   "description": "Set of presentations using code surfer ⚡️",
-  "main": "deck.mdx",
+  "main": "index.mdx",
   "scripts": {
-    "start": "mdx-deck deck.mdx",
-    "build": "mdx-deck build deck.mdx --no-html"
+    "start": "mdx-deck index.mdx",
+    "build": "mdx-deck build index.mdx --no-html"
   },
   "repository": {
     "type": "git",
