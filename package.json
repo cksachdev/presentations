@@ -4,8 +4,8 @@
   "description": "Set of presentations using code surfer ⚡️",
   "main": "index.mdx",
   "scripts": {
-    "start": "mdx-deck fancytree.mdx",
-    "build": "mdx-deck build fancytree.mdx --no-html"
+    "start": "mdx-deck index.mdx",
+    "build": "mdx-deck build index.mdx --no-html"
   },
   "repository": {
     "type": "git",

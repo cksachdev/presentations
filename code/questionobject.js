@@ -1,0 +1,46 @@
+var questionObj = {
+  data: {
+    plugin: {
+      id: 'org.ekstep.questionunit.mcq',
+      version: '1.1',
+      templateId: 'horizontalMCQ',
+    },
+    data: {
+      question: {
+        text: '',
+        image: '',
+        audio: '',
+        audioName: '',
+        hint: '',
+      },
+      options: [],
+      questionCount: 0,
+      media: [],
+    },
+    config: {
+      metadata: {
+        max_score: 1,
+        isShuffleOption: false,
+        isPartialScore: true,
+        evalUnordered: false,
+        templateType: '',
+        name: '',
+        title: '',
+        board: '',
+        medium: '',
+        gradeLevel: [],
+        subject: '',
+        qlevel: '',
+        category: 'MCQ',
+      },
+      max_time: 0,
+      max_score: 1,
+      partial_scoring: true,
+      layout: '',
+      isShuffleOption: false,
+      questionCount: 1,
+      evalUnordered: false,
+    },
+    media: [],
+  },
+}
