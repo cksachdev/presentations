@@ -1,24 +1,36 @@
-$(function(){
-    $('#tree').fancytree({
-      checkbox: true,
-      selectMode: 3,
-      source:[{"title":"Node1","key":"Node1", "folder":true},
-              {"title":"Node2","key":"Node2", "folder":false},
-              {"title":"Node3", "folder":false, "children":[
-                {"title":"Node3Child1","checkbox":false, "folder":false},
-                {"title":"Node3Child2", "folder":false},
-                {"title":"Node3Child3", "folder":false},
-              ]},
-             ],
-       activate: function(event, data){
-                $("#status").text("Activate: " + data.node);
-            },
-         
-      
-    });
-    $('#btn').click(function(){
-      var treeSelected = $('#tree').fancytree("getTree"),
-          nodeSelected2 = treeSelected.getNodeByKey("Node2");
-              nodeSelected2.toggleSelected()
-    });
-    });
+$(function () {
+  $("body").html("<dir id='tree'></dir>");
+  $('#tree').fancytree({
+    source: {
+      url: "./data/002.json"
+    },
+    expand: function(event, data) {
+      console.log("In expand event..."+data.node.title);
+    },
+    deactivate: function(event, data) {
+      console.log("In deactivate event..."+ data.node.title);
+    },
+    activate: function(event, data) {
+      console.log("In activate event..."+ data.node.title);
+    },
+    blurTree: function(event, data) {
+      console.log("In blur tree event...");
+    },
+    create: function(event, data) {
+      console.log("In create event");
+    },
+    init: function(event, data, flag) {
+      console.log("IN init function.....");
+    },
+    focusTree: function(event, data) {
+      console.log(event, data);
+    },
+    restore: function(event, data) {
+      console.log(event, data);
+    },
+  }).on("mouseenter mouseleave", ".fancytree-title", function(event){
+    // Add a hover handler to all node titles (using event delegation)
+    var node = $.ui.fancytree.getNode(event);
+    node.info(event.type);
+  });
+});

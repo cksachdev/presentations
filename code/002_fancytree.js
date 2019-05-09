@@ -1,24 +1,35 @@
-$(function(){
-    $('#tree').fancytree({
-      checkbox: true,
-      selectMode: 3,
-      source:[{"title":"Node1","key":"Node1", "folder":true},
-              {"title":"Node2","key":"Node2", "folder":false},
-              {"title":"Node3", "folder":false, "children":[
-                {"title":"Node3Child1","checkbox":false, "folder":false},
-                {"title":"Node3Child2", "folder":false},
-                {"title":"Node3Child3", "folder":false},
-              ]},
-             ],
-       activate: function(event, data){
-                $("#status").text("Activate: " + data.node);
-            },
-         
-      
-    });
-    $('#btn').click(function(){
-      var treeSelected = $('#tree').fancytree("getTree"),
-          nodeSelected2 = treeSelected.getNodeByKey("Node2");
-              nodeSelected2.toggleSelected()
-    });
-    });
+$(function () {
+  node = null;
+  $("body").html("<dir id='tree'></dir>");
+  $('#tree').fancytree({
+    checkbox: true,
+    source: {
+      url: "./data/001.json"
+    },
+    renderNode: function (event, data) {
+      var currentNode = data.node;
+      console.log("Current Node :: ", currentNode)
+      var nodeSpan = $(currentNode.span);
+      if (!nodeSpan.data("rendered")) {
+        var deleteButton = $('<a class="deleteIcon" href=\'#\'><img class="deleteImg" onclick="deleteFromFancytree()" src="icons8-trash-can-15.png"/></a>');
+        nodeSpan.append(deleteButton);
+        deleteButton.hide();
+        nodeSpan.hover(function () {
+          console.log("mouse entered" + data.node.title)
+          deleteButton.show();
+          node = currentNode;
+        }, function () {
+          deleteButton.hide();
+        });
+        nodeSpan.data('rendered', true);
+      }
+    }
+  });
+});
+
+function deleteFromFancytree() {
+  var text = node.span.innerText
+  console.log("This is the text...." + text)
+  node.remove();
+  console.log("node removed....")
+}

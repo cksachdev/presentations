@@ -1,24 +1,26 @@
-$(function(){
-    $('#tree').fancytree({
-      checkbox: true,
-      selectMode: 3,
-      source:[{"title":"Node1","key":"Node1", "folder":true},
-              {"title":"Node2","key":"Node2", "folder":false},
-              {"title":"Node3", "folder":false, "children":[
-                {"title":"Node3Child1","checkbox":false, "folder":false},
-                {"title":"Node3Child2", "folder":false},
-                {"title":"Node3Child3", "folder":false},
-              ]},
-             ],
-       activate: function(event, data){
-                $("#status").text("Activate: " + data.node);
-            },
-         
-      
-    });
-    $('#btn').click(function(){
-      var treeSelected = $('#tree').fancytree("getTree"),
-          nodeSelected2 = treeSelected.getNodeByKey("Node2");
-              nodeSelected2.toggleSelected()
-    });
-    });
+$(function () {
+  $("body").html("<dir id='tree'></dir>");
+  $('#tree').fancytree({
+    extensions: ["dnd5", "edit"],
+    source: {
+      url: "./data/002.json"
+    }, dnd5: {
+      autoExpandMS: 400,
+      focusOnClick: true,
+      preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+      preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+      dragStart: function (node, data) {
+        return true;
+      },
+      dragEnter: function (node, data) {
+        return true;
+      },
+      dragDrop: function (node, data) {
+        data.otherNode.moveTo(node, data.hitMode);
+      }
+    },
+    activate: function (event, data) {
+      console.log("This is in activate method");
+    },
+  });
+});
