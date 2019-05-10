@@ -47,7 +47,26 @@ utoplay\":false,\"visible\":true,\"color\":\"#FFFFFF\",\"genieControls\":false,\
 w_feedback\":true,\"shuffle_questions\":false,\"shuffle_options\":false,\"total_items\":1,\"btn_edit
 \":\"Edit\"}"
               },
-              "org.ekstep.question": []
+              "org.ekstep.question": [
+                {
+                  "id": "",
+                  "type": "mcq",
+                  "pluginId": "org.ekstep.questionunit.mcq",
+                  "pluginVer": "1.1",
+                  "templateId": "horizontalMCQ",
+                  "data": {
+                    "__cdata": ""
+                  },
+                  "config": {
+                    "__cdata": ""
+                  },
+                  "w": 80,
+                  "h": 85,
+                  "x": 9,
+                  "y": 6
+                } 
+              }
+              ]
             }
           ]
         }

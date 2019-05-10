@@ -23,33 +23,129 @@ export const theme = {
 ---
 
 <CodeSurfer
-  title="question types"
-  code={require('!raw-loader!./code/questiontype.js')}
-  lang="javascript"
-  showNumbers={true}
-  theme={dracula}
-  height="400"
-/>
----
-<CodeSurfer
-  title="question body"
-  code={require('!raw-loader!./code/qbody.js')}
-  lang="javascript"
-  showNumbers={true}
-  theme={dracula}
-  height="400"
-/>
----
-<CodeSurfer
-  title="question object"
+  title="question body object to create a new question"
   code={require('!raw-loader!./code/questionobject.js')}
   lang="javascript"
   showNumbers={true}
   theme={dracula}
   height="400"
+  steps={[
+    { notes: 'question body' },
+    { range: [9, 11], notes: 'update text and images' },
+    { range: [28, 33], notes: 'update config for the question object' },
+    {
+      range: [16, 16],
+      notes: 'update options array with text, image and isCorrect flag',
+    },
+    {
+      range: [11, 11],
+      notes: 'upload images and update the path with relative path',
+    },
+    {
+      range: [16, 16],
+      notes: 'upload images and update the path with relative path',
+    },
+    {
+      range: [18, 18],
+      notes: 'update question data media with all image assets',
+    },
+    {
+      range: [44, 44],
+      notes: 'update data media with the same assets',
+    },
+    { notes: 'question body completed' },
+  ]}
 />
+
 ---
-## Questions to QuestionSet 👋🏼
+
+<CodeSurfer
+  title="question request to action/assessment/v3/items/create"
+  code={require('!raw-loader!./code/assessmentrequest.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'question request api' },
+    { range: [17, 23], notes: 'update information from question object' },
+    {
+      range: [23, 23],
+      notes: 'above information is fetched from question created',
+    },
+    {
+      range: [24, 28],
+      notes: 'This information is fetched from a local constant configuration',
+    },
+    {
+      range: [6, 6],
+      notes: 'what is the use of this?',
+    },
+    {
+      range: [9, 9],
+      notes: 'what is the use of this?',
+    },
+    {
+      range: [10, 11],
+      notes: 'what is the difference between category and type?',
+    },
+    {
+      range: [12, 13],
+      notes: 'what is the use of template and template_id?',
+    },
+    {
+      range: [16, 16],
+      notes:
+        'what is the difference between isShuffleOption and evalUnordered?',
+    },
+    {
+      range: [29, 38],
+      notes: 'what is the use of options array? examples',
+    },
+    {
+      range: [39, 39],
+      notes: 'what is the use of outRelations?',
+    },
+    { notes: 'question request api' },
+  ]}
+/>
+
+---
+
+## Question to QuestionSet 👋🏼
+
+#### content id(doid) for the question is populated in same csv file from previous steps
+
+---
+
+## Steps
+
+<Appear>
+  <li>Read csv file</li>
+  <li>group by qr codes</li>
+  <li>fetch all questions response using assessment api</li>
+  <li>prepare content ecml body</li>
+  <li>set startstage id as uuidv4</li>
+  <li>keep stage[0] id as startstage id</li>
+  <li>set questionset id to uuidv4</li>
+  <li>question set config __cdata, set title and total_items value</li>
+  <li>get all question body and push inside questionset __cdata</li>
+  <li>
+    get all question media from body.data.media add asset ids at stage level
+    manifest media
+  </li>
+  <li>theme manifest media, add all media for all the questions</li>
+</Appear>
+---
+
+## APIs used
+
+<Appear>
+  <li> https://preprod.ntp.net.in/action/assessment/v3/items/create </li>
+  <li> https://preprod.ntp.net.in/api/private/content/v3/upload </li>
+  <li> https://preprod.ntp.net.in/action/assessment/v3/items/read/do id </li>
+  <li> https://preprod.ntp.net.in/api/private/content/v3/create </li>
+</Appear>
 ---
 <CodeSurfer
   title="ecml content"
@@ -57,46 +153,38 @@ export const theme = {
   lang="javascript"
   showNumbers={true}
   theme={dracula}
-  height="400"
   steps={[
-    { notes: 'ecml content structure' },
-    { range: [1, 20], notes: 'first 20 lines' },
-    { range: [21, 40], notes: 'next 20' },
-    { range: [41, 60], notes: 'next 20' },
-    { range: [61, 80], notes: 'next 20' },
-    { range: [81, 100], notes: 'next 20' },
-    { range: [100, 423], notes: 'next 20' },
-  ]}
-/>
-
-## QuestionSet to Content 👋🏼
-
----
-
-<CodeSurfer
-  title="ecml content"
-  code={require('!raw-loader!./code/ecml.js')}
-  lang="javascript"
-  showNumbers={true}
-  theme={dracula}
-  steps={[
-    { notes: 'content.js' },
-    { range: [6, 28], notes: 'only stage object in Worksheet' },
-    { range: [12, 12], notes: 'generate new uuid for this stage using uuidv4' },
-    { range: [5, 5], notes: 'Set stage[0] id as startstage id' },
-    { range: [28, 28], notes: 'iterate through all question do ids' },
+    { notes: 'content template' },
+    { range: [45, 48], notes: 'update title and total_items' },
+    { range: [55, 56], notes: 'update media array with question media at stage level' },
+    { range: [20, 21], notes: 'push asset ids at stage level manifest' },
+    { range: [42, 44], notes: 'push questions in questionset data cdata' },
     {
       range: [18, 26],
       notes: 'extract list of assets and populate in manifest media array',
     },
     {
-      range: [153, 157],
-      notes: 'same need to be populated in stage manifest media array',
+      range: [50, 68],
+      notes: 'update cdata and config from questions and popualate in org.ekstep.questionset array',
     },
   ]}
   height="400"
 />
-
+---
+<CodeSurfer
+  title="content request"
+  code={require('!raw-loader!./code/contentbody.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  steps={[
+    { notes: 'content request' },
+    { range: [4, 5], notes: 'these need to come from bulk upload format' },
+    { range: [6, 13], notes: 'content constant values' },
+    { range: [14, 14], notes: 'set the json body' },
+  ]}
+  height="400"
+/>
 ---
 
 ```js Steps
