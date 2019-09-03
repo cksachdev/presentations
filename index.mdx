@@ -231,6 +231,202 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 
 ---
 
+## Framework APIs
+
+---
+
+<CodeSurfer
+  title="Create new framework"
+  code={require('!raw-loader!./code/createFramework.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'This API is associated with creating a new framework. POST: https://preprod.ntp.net.in/api/framework/v1/create' },
+    { range: [1, 12], notes: 'Request body ' },
+    { range: [13, 16], notes: 'Request Headers where have to pass Authorization headers and channel-Id ' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Get framework details"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/read/frameworkcode"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'Pass frameworkcode. ex. `ap_k-12_1` and you will get details of that framework ' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="List all frameworks"
+  code="POST: https://preprod.ntp.net.in/api/framework/v1/list"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'It will give all the active framework list' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Update framework details"
+  code={require('!raw-loader!./code/updateFramework.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'PATCH: https://preprod.ntp.net.in/api/framework/v1/update/frameworkcode' },
+    { range: [3, 5], notes: 'Pass object of framework fields which you what to update. ex. name, description' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Publish framework"
+  code="POST: https://preprod.ntp.net.in/api/framework/v1/publish/frameworkcode"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'After creating / updating categories or terms, need to publish framework to update in framework details.' },
+    { notes: 'You have to pass `X-Channel-id` in request headers' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Create BMGST categories"
+  code={require('!raw-loader!./code/createBMGSTcategories.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'POST: https://preprod.ntp.net.in/api/framework/v1/category/create?framework=frameworkcode' },
+    { range:[3, 8], notes: 'Give categories details in request' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Get specific category details"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/category/read/`categorycode`?framework=`frameworkcode`"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'Category code = BMGST and pass framework code' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Get list of categories"
+  code="POST: https://preprod.ntp.net.in/api/framework/v1/category/search?framework=`frameworkcode`"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: 'you will get all the list of available categories' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Update category details"
+  code={require('!raw-loader!./code/createBMGSTcategories.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/category/update/`categorycode`?framework=`frameworkcode`" },
+    { range:[3, 8], notes: "Request body" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Create Terms"
+  code={require('!raw-loader!./code/createTerms.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "POST: https://preprod.ntp.net.in/api/framework/v1/term/create?framework=frameworkcode&category=categorycode" },
+    { range:[3, 8], notes: "Request body" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Get specific terms details"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/read/`termcode`?framework=`frameworkcode`&category=`categorycode`"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "you will get details of terms with it's associations and association with" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="List all the terms under single category"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/search?framework=`frameworkcode`&category=`categorycode`"
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "Get all the list of available terms" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Update terms details"
+  code= {require('!raw-loader!./code/createTerms.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/`termcode`?framework=`frameworkcode`&category=`categorycode`" },
+    { range:[3, 8], notes: "Request body" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Create term associations"
+  code= {require('!raw-loader!./code/createAssociation.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  steps={[
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/termcode?framework=frameworkcode&category=categorycode" },
+    { range:[3, 8], notes: "Request body" },
+  ]}
+/>
+
+---
+
 # Thanks! ☺️
 
 ---
