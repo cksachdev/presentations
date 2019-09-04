@@ -286,7 +286,12 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   height="700"
   steps={[
     { range:[15, 18], notes: 'Framework details' },
-    { range:[20, 126], notes: 'framework categories with its terms and associations' }
+    { range:[19, 19], notes: 'Categories object contains BMGST categories and its associations' },
+    { ranges:[[24, 53], [54, 63]], notes: 'Ex. Board category contains its terms cbse and GSEB' },
+    { range:[25, 44], notes: 'One board has many forward associations relations' },
+    { range:[26, 34], notes: 'single object of association contains identifier of category which associated with board' },
+    { lines:[27], notes: 'To fetch all the terms of this association we need to search using this identifier' },
+    { lines: [114], notes: 'You will ger result in medium category' },
   ]}
 />
 
@@ -504,7 +509,7 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   steps={[
     { range:[13, 85], notes: 'Term Details' },
     { range:[15, 48], notes: 'All the forward association to categories terms' },
-    { range:[59, 68], notes: 'All the backward association with categories terms' },
+    { range:[59, 68], notes: 'All the backward association with categories terms, you can find related categories using this association. Ex Board -> Medium -> Grade -> Subject -> Topic' },
     { range:[72, 81], notes: 'Category details' },
   ]}
 />
