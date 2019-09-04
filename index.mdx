@@ -248,17 +248,45 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
     { range: [13, 16], notes: 'Request Headers where have to pass Authorization headers and channel-Id ' },
   ]}
 />
+---
+<CodeSurfer
+  title="Create new framework response"
+  code={require('!raw-loader!./code/createFrameworkResponse.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="400"
+  steps={[
+    { range: [14, 14], notes: 'Framework identifier' },
+  ]}
+/>
 
 ---
 
 <CodeSurfer
   title="Get framework details"
-  code="GET: https://preprod.ntp.net.in/api/framework/v1/read/frameworkcode"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/read/framework_identifier"
   lang="javascript"
+  showNumbers={true}
   theme={dracula}
   height="400"
   steps={[
-    { notes: 'Pass frameworkcode. ex. `ap_k-12_1` and you will get details of that framework ' },
+    { notes: 'Pass framework identifier. ex. `ap_k-12_1` and you will get details of that framework ' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Get framework details response"
+  code={require('!raw-loader!./code/frameworkDetailsResponse.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="700"
+  steps={[
+    { range:[15, 18], notes: 'Framework details' },
+    { range:[20, 126], notes: 'framework categories with its terms and associations' }
   ]}
 />
 
@@ -269,9 +297,25 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code="POST: https://preprod.ntp.net.in/api/framework/v1/list"
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
     { notes: 'It will give all the active framework list' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="List all frameworks response"
+  code={require('!raw-loader!./code/frameworkListResponse.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="700"
+  steps={[
+    { range:[16, 24], notes: 'Framework details' },
+    { range:[46, 92], notes: 'Framework BMGST categories' },
   ]}
 />
 
@@ -282,9 +326,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code={require('!raw-loader!./code/updateFramework.js')}
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
-    { notes: 'PATCH: https://preprod.ntp.net.in/api/framework/v1/update/frameworkcode' },
+    { notes: 'PATCH: https://preprod.ntp.net.in/api/framework/v1/update/framework_identifier' },
     { range: [3, 5], notes: 'Pass object of framework fields which you what to update. ex. name, description' },
   ]}
 />
@@ -293,9 +338,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 
 <CodeSurfer
   title="Publish framework"
-  code="POST: https://preprod.ntp.net.in/api/framework/v1/publish/frameworkcode"
+  code="POST: https://preprod.ntp.net.in/api/framework/v1/publish/framework_identifier"
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
     { notes: 'After creating / updating categories or terms, need to publish framework to update in framework details.' },
@@ -310,9 +356,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code={require('!raw-loader!./code/createBMGSTcategories.js')}
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
-    { notes: 'POST: https://preprod.ntp.net.in/api/framework/v1/category/create?framework=frameworkcode' },
+    { notes: 'POST: https://preprod.ntp.net.in/api/framework/v1/category/create?framework=framework_identifier' },
     { range:[3, 8], notes: 'Give categories details in request' },
   ]}
 />
@@ -320,13 +367,44 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 ---
 
 <CodeSurfer
+  title="Create BMGST categories response"
+  code={require('!raw-loader!./code/createBMGSTcategoriesResponse.js')}
+  lang="javascript"
+  showNumbers={true}
+  theme={dracula}
+  height="700"
+  steps={[
+    { range:[14, 14], notes: 'Category node id (identifier id)' },
+  ]}
+/>
+
+---
+
+<CodeSurfer
   title="Get specific category details"
-  code="GET: https://preprod.ntp.net.in/api/framework/v1/category/read/`categorycode`?framework=`frameworkcode`"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/category/read/`categorycode`?framework=`framework_identifier`"
   lang="javascript"
   theme={dracula}
   height="400"
+  showNumbers={true}
   steps={[
     { notes: 'Category code = BMGST and pass framework code' },
+  ]}
+/>
+---
+
+<CodeSurfer
+  title="Get specific category details response"
+  code={require('!raw-loader!./code/categoryDetailResponse.js')}
+  lang="javascript"
+  theme={dracula}
+  height="400"
+  showNumbers={true}
+  steps={[
+    { range:[15, 15], notes: 'Category identifier' },
+    { range:[17, 17], notes: 'category code' },
+    { range:[34, 116], notes: 'All the terms under category' },
+    { range:[35, 43], notes: 'Term details' },
   ]}
 />
 
@@ -334,9 +412,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 
 <CodeSurfer
   title="Get list of categories"
-  code="POST: https://preprod.ntp.net.in/api/framework/v1/category/search?framework=`frameworkcode`"
+  code="POST: https://preprod.ntp.net.in/api/framework/v1/category/search?framework=`framework_identifier`"
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
     { notes: 'you will get all the list of available categories' },
@@ -346,13 +425,29 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 ---
 
 <CodeSurfer
+  title="Get list of categories response"
+  code={require('!raw-loader!./code/categoriesListResponse.js')}
+  lang="javascript"
+  theme={dracula}
+  height="700"
+  showNumbers={true}
+  steps={[
+    { lines:[14], notes: 'Total categories in specific framework' },
+    { range:[16, 60], notes: 'All the details about single category with its terms' },
+    { range:[36, 55], notes: 'Term details' },
+  ]}
+/>
+---
+
+<CodeSurfer
   title="Update category details"
   code={require('!raw-loader!./code/createBMGSTcategories.js')}
   lang="javascript"
+  showNumbers={true}
   theme={dracula}
   height="400"
   steps={[
-    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/category/update/`categorycode`?framework=`frameworkcode`" },
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/category/update/`categorycode`?framework=`framework_identifier`" },
     { range:[3, 8], notes: "Request body" },
   ]}
 />
@@ -364,20 +459,34 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code={require('!raw-loader!./code/createTerms.js')}
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
-    { notes: "POST: https://preprod.ntp.net.in/api/framework/v1/term/create?framework=frameworkcode&category=categorycode" },
+    { notes: "POST: https://preprod.ntp.net.in/api/framework/v1/term/create?framework=framework_identifier&category=categorycode" },
     { range:[3, 8], notes: "Request body" },
   ]}
 />
 
 ---
+<CodeSurfer
+  title="Create terms response"
+  code={require('!raw-loader!./code/createTermResponse.js')}
+  lang="javascript"
+  theme={dracula}
+  height="700"
+  showNumbers={true}
+  steps={[
+    { lines:[14, 16], notes: 'Term identifier' },
+  ]}
+/>
+---
 
 <CodeSurfer
   title="Get specific terms details"
-  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/read/`termcode`?framework=`frameworkcode`&category=`categorycode`"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/read/`termcode`?framework=`framework_identifier`&category=`categorycode`"
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
     { notes: "you will get details of terms with it's associations and association with" },
@@ -385,12 +494,28 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 />
 
 ---
+<CodeSurfer
+  title="Get specific terms details response"
+  code={require('!raw-loader!./code/termDetailResponse.js')}
+  lang="javascript"
+  theme={dracula}
+  height="700"
+  showNumbers={true}
+  steps={[
+    { range:[13, 85], notes: 'Term Details' },
+    { range:[15, 48], notes: 'All the forward association to categories terms' },
+    { range:[59, 68], notes: 'All the backward association with categories terms' },
+    { range:[72, 81], notes: 'Category details' },
+  ]}
+/>
+---
 
 <CodeSurfer
   title="List all the terms under single category"
-  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/search?framework=`frameworkcode`&category=`categorycode`"
+  code="GET: https://preprod.ntp.net.in/api/framework/v1/term/search?framework=`framework_identifier`&category=`categorycode`"
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
     { notes: "Get all the list of available terms" },
@@ -404,9 +529,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code= {require('!raw-loader!./code/createTerms.js')}
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
-    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/`termcode`?framework=`frameworkcode`&category=`categorycode`" },
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/`termcode`?framework=`framework_identifier`&category=`categorycode`" },
     { range:[3, 8], notes: "Request body" },
   ]}
 />
@@ -418,9 +544,10 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   code= {require('!raw-loader!./code/createAssociation.js')}
   lang="javascript"
   theme={dracula}
+  showNumbers={true}
   height="400"
   steps={[
-    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/termcode?framework=frameworkcode&category=categorycode" },
+    { notes: "PATCH: https://preprod.ntp.net.in/api/framework/v1/term/update/termcode?framework=framework_identifier&category=categorycode" },
     { range:[3, 8], notes: "Request body" },
   ]}
 />
