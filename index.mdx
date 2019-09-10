@@ -569,7 +569,7 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   <li>It is a must to provide values for the required parameters</li>
 </Appear>
 ---
-```js Required request headers parameters to create content
+```js Required request headers parameters
 1. Content-Type : content type of request ex. Application/json or Multipart/form-data or Application/x-www-form-urlencoded
 2. x-channel-id : channel id
 3. X-Authenticated-Userid : authorized User ID to execute the API.
@@ -602,6 +602,53 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 
 ---
 
+## Update content
+<h6>This API is associated with updating content on the Diksha platform.</h6>
+<Appear>
+  <li>'/api/content/v1/update/Content_do_ID' endpoint executes the Update Content request based on parameters provided as metadata in the request body.</li>
+  <li>It is a must to provide values for the required parameters</li>
+</Appear>
+---
+
+<CodeSurfer
+  title="Update content request parameters"
+  code= {require('!raw-loader!./code/updateContent.js')}
+  lang="javascript"
+  theme={dracula}
+  showNumbers={true}
+  height="600"
+  steps={[
+    { notes: "Request body" },
+    { lines: [4, 4], notes: 'Version key of the content. it is required.'},
+    { lines: [5, 5], notes: 'Content body for content. Only for ECML content.'},
+  ]}
+/>
+
+---
+
+## Read content
+<h6>This API is associated with fetching content data </h6>
+---
+
+<CodeSurfer
+  title="GET: /api/content/v1/read/DO_ID"
+  code= {require('!raw-loader!./code/contentReadResponse.js')}
+  lang="javascript"
+  theme={dracula}
+  showNumbers={true}
+  height="600"
+  steps={[
+    { notes: "Response body" },
+    { lines: [10, 10], notes: 'Represents the S3 URL of the Ecar, which can be used for downloading the Ecar' },
+    { range: [18, 27], notes: 'Represents the content variants based on medium of language' },
+    { lines: [41, 41], notes: 'Represents the array of collections that are associated with content' },
+    { range: [42, 69], notes: 'Represents the children (nodes) associated with the content' },
+    { range: [139, 144], notes: 'Represents content title and assosciated topics' },
+    { range: [153, 156], notes: 'Represents QR codes associated with textbook' }
+  ]}
+/>
+
+---
 
 # Thanks! ☺️
 
