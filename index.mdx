@@ -481,7 +481,7 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
   height="700"
   showNumbers={true}
   steps={[
-    { lines:[14, 16], notes: 'Term identifier' },
+    { range:[14, 16], notes: 'Term identifier' },
   ]}
 />
 ---
@@ -558,6 +558,50 @@ copy(org.ekstep.contenteditor.stageManager.toECML()) and paste in Kdiff3
 />
 
 ---
+
+### Content Creation APIs
+
+---
+## Create content
+<h6>This API is associated with creating content on the Diksha platform.</h6>
+<Appear>
+  <li>'/api/content/v1/create' endpoint executes the "Create Content" request based on parameters provided as metadata in the request body.</li>
+  <li>It is a must to provide values for the required parameters</li>
+</Appear>
+---
+```js Required request headers parameters to create content
+1. Content-Type : content type of request ex. Application/json or Multipart/form-data or Application/x-www-form-urlencoded
+2. x-channel-id : channel id
+3. X-Authenticated-Userid : authorized User ID to execute the API.
+4. Authorization : To make use of the API, you require authorization key.
+---
+
+<CodeSurfer
+  title="Create content request parameters"
+  code= {require('!raw-loader!./code/createContentRequest.js')}
+  lang="javascript"
+  theme={dracula}
+  showNumbers={true}
+  height="600"
+  steps={[
+    { notes: "Request body" },
+    { lines: [4, 4], notes: 'Specify one Content type. ex. "Resource", "Collection", "TextBook", "LessonPlan", "Course", "Template" '},
+    { lines: [5, 5], notes: 'Specify one resource type. ex. "Read", "Learn", "Teach", "Play", "Test", Practice", "Experiment", "Collection", "Book", "Lesson Plan", "Course", "Theory", "Worksheet", "Practical" '},
+    { lines: [6, 7], notes: 'Specify content title and short description about content.'},
+    { lines: [8, 8], notes: 'Framework identifier.'},
+    { lines: [9, 9], notes: 'Board name.'},
+    { range: [10, 14], notes: 'Array of medium, grade and subject.'},
+    { lines: [15, 15], notes: 'ID of the user who created Content.'},
+    { range: [16, 18], notes: 'Array List of org names.'},
+    { range: [19, 21], notes: 'Array List of Content created for.'},
+    { lines: [22, 22], notes: 'Content mime type'},
+    { lines: [23, 23], notes: 'List of primary contributors'},
+    { lines: [24, 24], notes: 'Content body for content. Only for ECML content'},
+  ]}
+/>
+
+---
+
 
 # Thanks! ☺️
 
